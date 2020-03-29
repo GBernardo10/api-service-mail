@@ -8,16 +8,14 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  PrimaryColumn,
 } from 'typeorm';
 import Mail from './mail.entity';
-
 @Entity({ name: 'mail_status' })
 @ObjectType()
 export default class MailStatus {
   @Field()
-  @PrimaryGeneratedColumn({ type: 'uuid', name: 'id_status' })
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn({ type: 'uuid'})
+  @Column({name:"id_status",primary:true})
   id: string;
 
   @Column({ enum: ['ready', 'stage', 'err'], type: 'enum' })

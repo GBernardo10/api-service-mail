@@ -5,17 +5,15 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  PrimaryColumn,
 } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 import MailStatus from './mail-status.entity';
-
 @Entity()
 @ObjectType()
 export default class Mail {
   @Field()
-  @PrimaryGeneratedColumn({ type: 'uuid', name: 'mail_id' })
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn({ type: 'uuid' })
+  @Column({ name: 'mail_id', primary: true })
   id: string;
 
   @Column()
