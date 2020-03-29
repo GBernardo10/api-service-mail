@@ -32,3 +32,6 @@ https://medium.com/the-crowdlinker-chronicle/creating-config-files-in-nestjs-dcd
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Environment variables
+.env
