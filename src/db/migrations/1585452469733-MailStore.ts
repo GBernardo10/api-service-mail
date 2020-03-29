@@ -8,7 +8,7 @@ export class MailStore1585452469733 implements MigrationInterface {
         name: 'mail_id',
         type: 'uuid',
         generationStrategy: 'uuid',
-        default:"uuid_generate_v4()",
+        default: 'uuid_generate_v4()',
         isPrimary: true,
       },
       {
@@ -23,6 +23,11 @@ export class MailStore1585452469733 implements MigrationInterface {
       },
       {
         name: 'subject',
+        type: 'varchar',
+        isNullable: false,
+      },
+      {
+        name: 'body',
         type: 'varchar',
         isNullable: false,
       },
@@ -42,7 +47,7 @@ export class MailStore1585452469733 implements MigrationInterface {
   });
 
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`)
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.createTable(this.table);
   }
 
