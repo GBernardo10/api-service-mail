@@ -6,10 +6,9 @@ export class MailStore1585452469733 implements MigrationInterface {
     columns: [
       {
         name: 'mail_id',
-        type: 'varchar',
+        type: 'uuid',
         generationStrategy: 'uuid',
         isPrimary: true,
-        isGenerated: true,
       },
       {
         name: 'to',
