@@ -1,29 +1,31 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
-export class MailStore1585452469733 implements MigrationInterface {
+export class MailStatus1585458675644 implements MigrationInterface {
+
   private table = new Table({
-    name: 'mails_store',
+    name: 'mail_status',
     columns: [
       {
-        name: 'mail_id',
+        name: 'id_status',
         type: 'uuid',
         generationStrategy: 'uuid',
         default:"uuid_generate_v4()",
         isPrimary: true,
       },
       {
-        name: 'to',
+        name: 'status',
         type: 'varchar',
+        enum: ['ready', 'stage', 'err'],
         isNullable: false,
       },
       {
-        name: 'from',
-        type: 'varchar',
-        isNullable: false,
-      },
-      {
-        name: 'subject',
-        type: 'varchar',
+        name: 'fk_mail_id',
+        type: 'uuid',
         isNullable: false,
       },
       {
@@ -41,9 +43,15 @@ export class MailStore1585452469733 implements MigrationInterface {
     ],
   });
 
+  private foreignKey = new TableForeignKey({
+    columnNames: ['fk_mail_id'],
+    referencedColumnNames: ['mail_id'],
+    referencedTableName: 'mails_store',
+  });
+
   public async up(queryRunner: QueryRunner): Promise<any> {
-    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`)
     await queryRunner.createTable(this.table);
+    await queryRunner.createForeignKey('mail_status', this.foreignKey);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
