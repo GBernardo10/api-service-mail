@@ -1,8 +1,8 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import Mail from 'src/db/models/mail.entity';
+import Mail from 'src/entity/mail.entity';
 import RepoService from 'src/services/repo.service';
-import MailStatus from 'src/db/models/mail-status.entity';
+import MailStatus from 'src/entity/mail-status.entity';
 
 @Global()
 @Module({
