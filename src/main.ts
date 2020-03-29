@@ -1,10 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { AppConfigService } from './config/app/config.service';
+
+
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.EXPRESS_PORT, () => {
-    console.log(process.env.EXPRESS_PORT);
+  const appConfig: AppConfigService = app.get('AppConfigService');
+  await app.listen(appConfig.port, () => {
+    console.log(process.env.TYPEORM_DATABASE);
   });
 }
 bootstrap();

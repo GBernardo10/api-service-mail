@@ -1,19 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import * as ormOptions from './config/orm';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import RepoModule from './modules/repo.module';
-import { ConfigModule } from '@nestjs/config';
+import { AppConfigModule } from './config/app/config.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.production'],
-      load:[]
-    }),
-    TypeOrmModule.forRoot(),
-    RepoModule,
-  ],
+  imports: [AppConfigModule, TypeOrmModule.forRoot(ormOptions), RepoModule],
   controllers: [AppController],
   providers: [AppService],
 })
