@@ -6,9 +6,8 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.build.json",
     "prebuild": "rimraf dist",
-    "build:nest": "nest build",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:prod": "node dist/main.js",
