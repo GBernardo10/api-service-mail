@@ -20,11 +20,13 @@ export default class MailStatusResolver {
     return this.repoService.mailStatusRepo.find();
   }
 
-  @Query(() => MailStatus, { nullable: true })
+  @Query(() => [MailStatus], { nullable: true })
   public async getStatus(
     @Args('status') status: string,
   ): Promise<MailStatus[]> {
-    return this.repoService.mailStatusRepo.find({ where: status });
+    return this.repoService.mailStatusRepo.find({
+      where: { status },
+    });
   }
 
   @Mutation(() => MailStatus)
@@ -33,7 +35,7 @@ export default class MailStatusResolver {
   ): Promise<MailStatus> {
     const MailStatus = this.repoService.mailStatusRepo.create({
       mailId: input.mail.connect.id,
-      status: input.status,
+      status:input.status
     });
     return this.repoService.mailStatusRepo.save(MailStatus);
   }

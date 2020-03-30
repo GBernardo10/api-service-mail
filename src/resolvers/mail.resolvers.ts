@@ -2,6 +2,7 @@ import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import RepoService from 'src/services/repo.service';
 import Mail from 'src/entity/mail.entity';
 import MailInput from './input/mail.input';
+import { HttpException, HttpStatus } from '@nestjs/common';
 
 @Resolver(() => Mail)
 export default class MailResolver {
@@ -20,6 +21,10 @@ export default class MailResolver {
       subject: input.subject,
       body: input.body,
     });
+    const t = mail.to;
+    if (!t.length) {
+      throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
+    }
     return this.repoService.mailRepo.save(mail);
   }
 }

@@ -19,14 +19,14 @@ input MailInput {
 
 type MailStatus {
   id: String!
-  status: String!
+  status: String
   mailId: String!
   mail: Mail!
   getMail: Mail!
 }
 
 input MailStatusInput {
-  status: String!
+  status: String = "stage"
   mail: StatusMailStore!
 }
 
@@ -38,7 +38,7 @@ type Mutation {
 type Query {
   mails: [Mail!]!
   MailStatus: [MailStatus!]!
-  getStatus(status: String!): MailStatus
+  getStatus(status: String!): [MailStatus!]
 }
 
 input StatusMailStore {

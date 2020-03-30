@@ -1,6 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-
 @InputType()
 class StatusMailStoreConnectInput {
   @Field()
@@ -15,7 +14,7 @@ class StatusMailStore {
 
 @InputType()
 export default class MailStatusInput {
-  @Field()
+  @Field({ defaultValue: 'stage' })
   readonly status: string;
 
   @Field()

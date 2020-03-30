@@ -6,7 +6,6 @@ import {
 } from 'typeorm';
 
 export class MailStatus1585458675644 implements MigrationInterface {
-
   private table = new Table({
     name: 'mail_status',
     columns: [
@@ -14,12 +13,12 @@ export class MailStatus1585458675644 implements MigrationInterface {
         name: 'id_status',
         type: 'uuid',
         generationStrategy: 'uuid',
-        default:"uuid_generate_v4()",
+        default: 'uuid_generate_v4()',
         isPrimary: true,
       },
       {
         name: 'status',
-        type: 'varchar',
+        type: 'text',
         enum: ['ready', 'stage', 'err'],
         isNullable: false,
       },
@@ -52,6 +51,17 @@ export class MailStatus1585458675644 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.createTable(this.table);
     await queryRunner.createForeignKey('mail_status', this.foreignKey);
+    await queryRunner.query(`DROP TYPE IF EXISTS enum;`)
+    await queryRunner.query(
+      `CREATE TYPE enum AS ENUM ('ready', 'stage', 'err')`,
+    );
+    await queryRunner.query(`
+    ALTER TABLE mail_status
+      ALTER COLUMN status DROP DEFAULT,
+      ALTER COLUMN status
+        SET DATA TYPE enum
+        USING status::text::enum,
+        ALTER COLUMN status SET DEFAULT 'stage';`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<any> {
