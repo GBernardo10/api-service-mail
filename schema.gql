@@ -1,0 +1,50 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mail {
+  id: String!
+  to: String!
+  from: String!
+  subject: String!
+  body: String!
+}
+
+input MailInput {
+  to: String!
+  from: String!
+  subject: String!
+  body: String!
+}
+
+type MailStatus {
+  id: String!
+  status: String!
+  mailId: String!
+  mail: Mail!
+  getMail: Mail!
+}
+
+input MailStatusInput {
+  status: String!
+  mail: StatusMailStore!
+}
+
+type Mutation {
+  createEmail(data: MailInput!): Mail!
+  createEMailStatus(data: MailStatusInput!): MailStatus!
+}
+
+type Query {
+  mails: [Mail!]!
+  MailStatus: [MailStatus!]!
+  getStatus(status: String!): MailStatus
+}
+
+input StatusMailStore {
+  connect: StatusMailStoreConnectInput
+}
+
+input StatusMailStoreConnectInput {
+  id: String!
+}

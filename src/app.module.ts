@@ -5,7 +5,12 @@ import RepoModule from './modules/repo.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { config } from 'dotenv';
+import MailResolver from './resolvers/mail.resolvers';
+import { GraphQLModule } from '@nestjs/graphql';
+import MailStatusResolver from './resolvers/mail-status.resolvers';
 config();
+
+const gqlImports = [MailResolver, MailStatusResolver];
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,6 +24,11 @@ config();
     }),
     ConfigModule.forRoot({
       ignoreEnvFile: true,
+    }),
+    ...gqlImports,
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.gql',
+      playground: true,
     }),
     RepoModule,
   ],

@@ -18,6 +18,7 @@ export default class MailStatus {
   @Column({name:"id_status",primary:true})
   id: string;
 
+  @Field()
   @Column({ enum: ['ready', 'stage', 'err'], type: 'enum' })
   status: string;
 
@@ -28,7 +29,7 @@ export default class MailStatus {
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'update_at' })
+  @UpdateDateColumn({ name: 'updated_at' })
   updateAt: Date;
 
   @Field(() => Mail)

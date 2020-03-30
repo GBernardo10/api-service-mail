@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 import MailStatus from './mail-status.entity';
-@Entity()
+@Entity({ name: 'mails_store' })
 @ObjectType()
 export default class Mail {
   @Field()
@@ -35,7 +35,7 @@ export default class Mail {
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'update_at' })
+  @UpdateDateColumn({ name: 'updated_at' })
   updateAt: Date;
 
   @OneToMany(
